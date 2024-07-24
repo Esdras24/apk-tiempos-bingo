@@ -1,0 +1,75 @@
+.border-radius {
+  border-radius: 20px;
+  border: 3px solid #03a9f4;
+}
+
+.sub-container {
+  height: 30%;
+  width: 100%;
+}
+
+.sub-div {
+  margin: 5px;
+  background-color: #b3e5fc;
+}
+
+.sub-container-main {
+  width: 100%;
+}
+
+.sub-container-div {
+  width: 80%;
+  align-items: center;
+  display: flex;
+  margin-left: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-column {
+  width: 20%;
+  text-align: center;
+  font-size: 40px;
+}
+
+.sub-tittle {
+  margin-left: 10%;
+}
+
+.info-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  font-size: 40px;
+}
+
+.info-column-account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  font-size: 20px;
+}
+
+.info-column-email {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  font-size: 17px;
+}
+
+.main-div-header {
+  width: 100%;
+  display: flex;
+}
+
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+
+.body-header {
+  text-align: center;
+  width: 100%;
+}

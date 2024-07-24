@@ -1,0 +1,43 @@
+.main-div-header {
+  width: 100%;
+  display: flex;
+}
+
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+
+.main-div {
+  width: 100vw;
+}
+
+.body-header {
+  text-align: center;
+  width: 100%;
+}
+
+.sub-container {
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align: center;
+}
+
+.div-header {
+  text-align: center;
+}
+
+.div-dato {
+  width: 30%;
+  border: 1px solid red;
+  margin: 0% 2% 0% 2%;
+  border-radius: 15px;
+  background-color: #bbdefb;
+}
+
+.contenedor-data {
+  display: flex;
+}
+
+.main-div-data {
+  margin-bottom: 30px;
+}

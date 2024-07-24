@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="color-header">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="main-div-header color-header">
+      <h5>
+        Saldo: <strong>{{ user.saldo }}</strong> | Premios
+        <strong>{{ user.bonus }}</strong>
+      </h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-div">
+  <div class="body-header">
+    <h2><strong>Resultados del día</strong></h2>
+  </div>
+  <div class="sub-container">
+    <div *ngFor="let element of data" class="main-div-data">
+      <div class="div-header">
+        <h4>
+          <strong>{{ element.tipo }}</strong>
+        </h4>
+      </div>
+      <div class="contenedor-data">
+        <div *ngFor="let dato of element.datos" class="div-dato">
+          <p>{{ dato.horario }}</p>
+          <h3>
+            <strong>{{ dato.registro }}</strong>
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

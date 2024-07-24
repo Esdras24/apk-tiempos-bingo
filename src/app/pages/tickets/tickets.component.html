@@ -1,0 +1,83 @@
+<ion-header [translucent]="true" class="">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="color-header">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="main-div-header color-header">
+      <h5>
+        Saldo: <strong>{{ user.saldo }}</strong> | Premios
+        <strong>{{ user.bonus }}</strong>
+      </h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="body-header">
+    <h2><strong>Ticketes</strong></h2>
+  </div>
+  <div class="">
+    <div class="full-width body-header">
+      <H2>Eliminar Ticket</H2>
+    </div>
+    <div class="main-container">
+      <div class="sub-container">
+        <div class="screen-middle body-header">
+          <form [formGroup]="ticketGroup">
+            <ion-input
+              type="number"
+              formControlName="ticketNumber"
+              class="input-background"
+            ></ion-input>
+          </form>
+        </div>
+        <div class="screen-middle">
+          <ion-icon
+            class="send-icon"
+            name="arrow-forward-circle-outline"
+            (click)="deleteTicket()"
+          ></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-div">
+    <div class="body-header">
+      <form [formGroup]="ticketGroup">
+        <div class="display-flex">
+          <div class="screen-middle date-font-size color-header">Fecha:</div>
+          <div
+            (click)="showDateTime = !showDateTime"
+            class="date-div screen-middle date-font-size"
+          >
+            {{ date }}
+          </div>
+        </div>
+        <div *ngIf="showDateTime">
+          <ion-datetime
+            formControlName="date"
+            presentation="date"
+            size="fixed"
+            (ionChange)="dateChange()"
+          ></ion-datetime>
+        </div>
+      </form>
+    </div>
+    <div class="table-div">
+      <table class="table-main">
+        <tr>
+          <th>Tiquete</th>
+          <th>Horario</th>
+          <th>Balance</th>
+        </tr>
+        <tr *ngFor="let element of rows" class="table-main">
+          <td class="each-data" (click)="reloadTicket(element.tiquete)">
+            {{ element.tiquete }}
+          </td>
+          <td class="each-data">{{ element.horario }}</td>
+          <td class="each-data">{{ element.balance }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</ion-content>

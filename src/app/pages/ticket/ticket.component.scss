@@ -1,0 +1,29 @@
+.main-container {
+  padding: 10%;
+}
+.sub-container {
+  width: 100%;
+  display: flex;
+}
+
+.back-blue {
+  background-color: #e1f5fe;
+  border-radius: 5px;
+}
+
+.amount-column {
+  width: 20%;
+}
+
+.number-column {
+  width: 80%;
+}
+
+.border-red {
+  border: 1px red solid;
+  border-radius: 25px;
+}
+
+.total {
+  text-align: center;
+}

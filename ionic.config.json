@@ -1,0 +1,8 @@
+{
+  "name": "tiempos",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "4f9c8610"
+}

@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="color-header">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="main-div-header color-header">
+      <h5>
+        Saldo: <strong>{{ user.saldo }}</strong> | Premios
+        <strong>{{ user.bonus }}</strong>
+      </h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-div">
+  <div class="body-header">
+    <h2><strong>Ultimas Notificaciones</strong></h2>
+  </div>
+  <div class="sub-container">
+    <div *ngFor="let element of data" class="content-info">
+      <h4>
+        <strong>Fecha: {{ element.fecha }}</strong>
+      </h4>
+      <ion-item>
+        <ion-textarea [autoGrow]="true" value="{{ element.message }}" disabled>
+        </ion-textarea>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>

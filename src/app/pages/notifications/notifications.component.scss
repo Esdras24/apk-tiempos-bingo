@@ -1,0 +1,37 @@
+.main-div-header {
+  width: 100%;
+  display: flex;
+}
+
+.main-div {
+  width: 100vw;
+}
+
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+
+.body-header {
+  text-align: center;
+  width: 100%;
+}
+
+.sub-container {
+  padding-left: 10%;
+  padding-right: 10%;
+  text-align: center;
+}
+
+.content-info {
+  border: 3px solid blue;
+  background-color: #90caf9;
+  border-radius: 15px;
+  width: 100%;
+  margin-top: 5px;
+  padding: 3%;
+}
+
+ion-textarea,
+ion-item {
+  border-radius: 15px;
+}

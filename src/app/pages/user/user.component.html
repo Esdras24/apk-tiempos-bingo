@@ -1,0 +1,80 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="color-header">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="main-div-header color-header">
+      <h5>
+        Saldo: <strong>{{ user.saldo }}</strong> | Premios
+        <strong>{{ user.bonus }}</strong>
+      </h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="body-header">
+    <h2><strong>Banca</strong></h2>
+  </div>
+  <div class="sub-container">
+    <div class="sub-div border-radius">
+      <div class="sub-container-main">
+        <div class="sub-tittle">
+          <h5>Sinpe Banca</h5>
+        </div>
+        <div class="sub-container-div">
+          <div class="icon-column">
+            <ion-icon name="person-circle-outline"></ion-icon>
+          </div>
+          <div class="info-column">
+            {{ userInfo.sinpeBanca }}
+          </div>
+        </div>
+      </div>
+      <div class="sub-container-main">
+        <div class="sub-tittle">
+          <h5>Email</h5>
+        </div>
+        <div class="sub-container-div">
+          <div class="icon-column">
+            <ion-icon name="at-outline"></ion-icon>
+          </div>
+          <div class="info-column-email">
+            {{ userInfo.emailBanca }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body-header">
+    <h2><strong>Usuario</strong></h2>
+  </div>
+  <div class="sub-container">
+    <div class="sub-div border-radius">
+      <div class="sub-container-main">
+        <div class="sub-tittle">
+          <h5>Tu Sinpe</h5>
+        </div>
+
+        <div class="sub-container-div">
+          <div class="icon-column">
+            <ion-icon name="phone-portrait-outline"></ion-icon>
+          </div>
+          <div class="info-column">{{ userInfo.sinpeUser }}</div>
+        </div>
+      </div>
+      <div class="sub-container-main">
+        <div class="sub-tittle">
+          <h5>Tu Cuenta</h5>
+        </div>
+
+        <div class="sub-container-div">
+          <div class="icon-column">
+            <ion-icon name="cash-outline"></ion-icon>
+          </div>
+          <div class="info-column-account">{{ userInfo.acountUser }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

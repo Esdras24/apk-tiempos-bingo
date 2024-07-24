@@ -1,0 +1,6 @@
+{
+  "appId": "me.tecnosystem.www",
+  "appName": "Tiempos CR",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

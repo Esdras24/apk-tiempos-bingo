@@ -1,0 +1,24 @@
+<div class="main">
+  <div class="sub">
+    <form [formGroup]="authFormGroup">
+      <div>
+        <label for="">Usuario</label>
+        <ion-input type="number" formControlName="userID"></ion-input>
+      </div>
+      <div>
+        <label for="">Contraseña</label>
+
+        <ion-input type="password" formControlName="password"></ion-input>
+      </div>
+      <div>
+        <ion-button
+          (click)="onSubmit()"
+          form="authFormGroup"
+          [disabled]="!authFormGroup.valid"
+        >
+          Login
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</div>

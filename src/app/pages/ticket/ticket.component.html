@@ -1,0 +1,65 @@
+<ion-content>
+  <div class="main-container">
+    <h4>
+      Ticket <strong>{{ ticket }}</strong>
+    </h4>
+    <h4>
+      Fecha <strong>{{ date }}</strong>
+    </h4>
+    <h4>
+      Sorteo <strong>{{ raffle }}</strong>
+    </h4>
+    <div *ngIf="data.length > 0" class="sub-container color-header">
+      <div class="amount-column">
+        <label for="">Monto</label>
+      </div>
+      <div class="number-column">
+        <label for="">Números</label>
+      </div>
+    </div>
+    <div class="sub-container" *ngFor="let element of data">
+      <div class="amount-column back-blue">
+        <ion-input type="number" value="{{ element.monto }}"></ion-input>
+      </div>
+      <div class="number-column back-blue">
+        <ion-chip *ngFor="let number of element.numeros">
+          <ion-label>{{ number }}</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+    <div *ngIf="subRaffle">
+      <h4>
+        Sorteo <strong>{{ subRaffle }}</strong>
+      </h4>
+      <div *ngIf="data.length > 0" class="sub-container color-header">
+        <div class="amount-column">
+          <label for="">Monto</label>
+        </div>
+        <div class="number-column">
+          <label for="">Números</label>
+        </div>
+      </div>
+      <div class="sub-container" *ngFor="let element of data">
+        <div class="amount-column back-blue">
+          <ion-input type="number" value="{{ element.monto }}"></ion-input>
+        </div>
+        <div class="number-column back-blue">
+          <ion-chip *ngFor="let number of element.numeros">
+            <ion-label>{{ number }}</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+    </div>
+    <div class="total">
+      <h4>
+        Total: <strong>{{ total }}</strong>
+      </h4>
+    </div>
+    <div class="total">
+      <ion-button fill="outline" (click)="dissmis()">
+        Aceptar
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

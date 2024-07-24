@@ -1,0 +1,61 @@
+.border-red {
+  border: 1px red solid;
+  border-radius: 25px;
+}
+
+.sub-container {
+  width: 80%;
+  display: flex;
+  text-align: center;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+}
+
+.main-div-header {
+  width: 100%;
+  display: flex;
+}
+
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+
+.body-header {
+  text-align: center;
+}
+
+.date-div {
+  background-color: #03a9f4;
+  color: white;
+  width: 50%;
+}
+
+.display-flex {
+  display: flex;
+  width: 100%;
+}
+
+.screen-middle {
+  width: 50%;
+}
+
+.table-div {
+  margin-top: 5%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.send-icon {
+  font-size: 35px;
+  color: #0277bd;
+}
+
+.date-font-size {
+  font-size: 25px;
+  border-radius: 5px;
+}

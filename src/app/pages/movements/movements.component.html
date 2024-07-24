@@ -1,0 +1,106 @@
+<ion-header [translucent]="true" class="">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="color-header">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="main-div-header color-header">
+      <h5>
+        Saldo: <strong>{{ user.saldo }}</strong> | Premios
+        <strong>{{ user.bonus }}</strong>
+      </h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="body-header">
+    <h2><strong>Movimientos</strong></h2>
+  </div>
+  <div>
+    <div class="full-width body-header">
+      <H2>Solicitar Deposito</H2>
+    </div>
+    <div class="main-container">
+      <div class="sub-container">
+        <div class="screen-middle body-header">
+          <form [formGroup]="moveGroup">
+            <ion-input
+              type="number"
+              formControlName="depositRequest"
+              class="input-background"
+            ></ion-input>
+          </form>
+        </div>
+        <div class="screen-middle">
+          <ion-icon
+            class="send-icon"
+            name="arrow-forward-circle-outline"
+            (click)="depositRequest()"
+          ></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="full-width body-header">
+      <H2>Solicitar Recarga</H2>
+    </div>
+    <div class="main-container">
+      <div class="sub-container">
+        <div class="screen-middle body-header">
+          <form [formGroup]="moveGroup">
+            <ion-input
+              type="number"
+              formControlName="rechargeRequest"
+              class="input-background"
+            ></ion-input>
+          </form>
+        </div>
+        <div class="screen-middle">
+          <ion-icon
+            class="send-icon"
+            name="arrow-forward-circle-outline"
+            (click)="rechargeRequest()"
+          ></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-div">
+    <div class="body-header">
+      <form [formGroup]="dateGroup">
+        <div class="display-flex">
+          <div class="screen-middle color-header date-font-size">Fecha:</div>
+          <div
+            (click)="showDateTime = !showDateTime"
+            class="date-div screen-middle date-font-size"
+          >
+            {{ date }}
+          </div>
+        </div>
+        <div *ngIf="showDateTime">
+          <ion-datetime
+            formControlName="date"
+            presentation="date"
+            size="fixed"
+            (ionChange)="dateChange()"
+          ></ion-datetime>
+        </div>
+      </form>
+    </div>
+    <div class="table-div">
+      <ngx-datatable
+        class="material"
+        [limit]="8"
+        [rows]="rows"
+        [rowHeight]="50"
+        [columns]="columns"
+        [columnMode]="'force'"
+        [sortType]="SortType.multi"
+        [headerHeight]="50"
+        [footerHeight]="50"
+      >
+      </ngx-datatable>
+    </div>
+  </div>
+</ion-content>

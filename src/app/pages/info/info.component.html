@@ -1,0 +1,19 @@
+<ion-content>
+  <div class="main-container">
+    <div class="header-info">
+      <strong><h3>Aviso Importante</h3></strong>
+    </div>
+    <div *ngFor="let message of info" class="body-content">
+      <p>{{ message.message }}</p>
+    </div>
+    <div *ngIf="type !== 'update'" class="footer-info">
+      <p>Para mas información, vaya a la parte de notificaiones.</p>
+    </div>
+  </div>
+  <div class="total">
+    <ion-button fill="outline" (click)="dissmis()">
+      Aceptar
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
