@@ -1,0 +1,39 @@
+<div class="main">
+  <div class="sub">
+    <form [formGroup]="registryFormGroup">
+      <div class="input-container">
+        <label class="label">Cedula</label>
+        <ion-input type="number" formControlName="userID"></ion-input>
+      </div>
+      <div class="input-container">
+        <label class="label">Telefono</label>
+        <ion-input type="number" formControlName="telephone"></ion-input>
+      </div>
+      <div class="input-container">
+        <label class="label">Sinpe</label>
+        <ion-input type="number" formControlName="sinpe"></ion-input>
+      </div>
+      <div class="input-container">
+        <label class="label">Contraseña</label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </div>
+      <div class="input-container">
+        <label class="label">Confirmar Contraseña</label>
+        <ion-input
+          type="password"
+          formControlName="confirmPassword"
+        ></ion-input>
+      </div>
+
+      <div>
+        <ion-button
+          (click)="onSubmit()"
+          form="authFormGroup"
+          [disabled]="!registryFormGroup.valid"
+        >
+          Registrar
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</div>

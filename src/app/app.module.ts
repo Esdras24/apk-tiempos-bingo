@@ -19,6 +19,7 @@ import { ResultsComponent } from './pages/results/results.component';
 import { TicketComponent } from './pages/ticket/ticket.component';
 import { TicketsComponent } from './pages/tickets/tickets.component';
 import { UserComponent } from './pages/user/user.component';
+import { RegistryComponent } from './pages/auth/registry/registry.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UserComponent } from './pages/user/user.component';
     InfoComponent,
     ResultsComponent,
     NotificationsComponent,
+    RegistryComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { UserEntity } from 'src/app/interfaces/user-model.module';
 import { InfoComponent } from '../../info/info.component';
-import { LoginService } from './login.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   authFormGroup: FormGroup;
 
   constructor(
-    private loginService: LoginService,
+    private authService: AuthService,
     private router: Router,
     private toastController: ToastController,
     private modalController: ModalController
@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loginService.login(this.authFormGroup.value).subscribe(
+    this.authService.login(this.authFormGroup.value).subscribe(
       async (data) => {
         switch (data.estado) {
           case 'm': {
             if (data.messages.length > 0) {
               await this.openModal(data.messages, 'mensaje');
             }
-            this.loginService.setUser(data);
+            this.authService.setUser(data);
             this.router.navigate(['/app']);
             break;
           }
@@ -94,6 +94,6 @@ export class LoginComponent implements OnInit {
     const user: UserEntity = {
       userName: '',
     };
-    this.loginService.setUser(user);
+    this.authService.setUser(user);
   }
 }

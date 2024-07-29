@@ -7,6 +7,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { ResultsComponent } from './pages/results/results.component';
 import { TicketsComponent } from './pages/tickets/tickets.component';
 import { UserComponent } from './pages/user/user.component';
+import { RegistryComponent } from './pages/auth/registry/registry.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,11 @@ const routes: Routes = [
     path: 'notifications',
     pathMatch: 'full',
     component: NotificationsComponent,
+  },
+  {
+    path: 'registry',
+    pathMatch: 'full',
+    component: RegistryComponent,
   },
 ];
 

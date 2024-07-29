@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
+export class AuthService {
   constructor(private http: HttpClient) {}
 
   getUser(): any {
@@ -31,6 +31,19 @@ export class LoginService {
 
     return this.http
       .post<any>(`${environment.url}/movil/indexprueba.php`, datas)
+      .pipe(
+        catchError((error: Response): Observable<Response> => throwError(error))
+      );
+  }
+
+  registry(user: any): Observable<UserEntity> {
+    const datas = new FormData();
+    datas.append('userID', user.userID);
+    datas.append('password', user.password);
+    datas.append('version', '8');
+
+    return this.http
+      .post<any>(`${environment.url}/movil/indexpruebamovil.php`, datas)
       .pipe(
         catchError((error: Response): Observable<Response> => throwError(error))
       );

@@ -5,6 +5,9 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-image: url('../../../../assets/images/loginBack.jpg');
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
 }
 
 .sub {
