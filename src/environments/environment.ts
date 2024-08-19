@@ -4,11 +4,15 @@
 
 export const environment = {
   production: false,
-  //url: 'http://tecnosystem.me',
-  //url: 'http://tiemposvictoria.com',
-  url: 'http://localhost',
+  url: 'https://tiemposbingoregalado.com',
+  //url: 'http://localhost',
 };
 
+export const bingoCredentials = {
+  url: 'https://bingoregalado.com/api-bingo-regalado/api',
+  email: 'sistematiempos-apiclient@bingoregalado.com',
+  password: 'g*H3$Olepr9!'
+}
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

@@ -1,0 +1,91 @@
+<ion-header [translucent]="true" class="">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="color-header">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="main-div-header color-header">
+      <h5>
+        Saldo: <strong>{{ user?.saldo }}</strong> | Premios
+        <strong>{{ user?.bonus }}</strong>
+      </h5>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<div id="container" class="">
+    <form [formGroup]="ticketDataFormGroup">
+      <div class="sub-container">
+        <div class="middle-screen">
+          <label>Sorteo</label>
+          <ion-select
+            (ionChange)="cambio()"
+            formControlName="raffle"
+          >
+            <ion-select-option value="">Seleccione Una</ion-select-option>
+            <ion-select-option
+              *ngFor="let option of raffles;"
+              [value]="option.nombre"
+              >{{option.nombre}}</ion-select-option
+            >
+          </ion-select>
+        </div>
+        <div class="middle-screen">
+          <label>Total</label>
+          <ion-input type="text" formControlName="total"></ion-input>
+        </div>
+      </div>
+      <div class="sub-container">
+        <div class="third-screen">
+          <label>Monto</label>
+          <ion-input
+            type="text"
+            formControlName="amountInput"
+            class="input-background"
+          ></ion-input>
+        </div>
+        <div class="third-screen">
+          <label>Número</label>
+          <ion-input
+            class="input-background"
+            type="text"
+            formControlName="numberInput"
+            #numberInput
+          ></ion-input>
+        </div>
+        <div class="third-column">
+          <ion-icon
+            name="add-circle-outline"
+            class="add-icon"
+            (click)="add()"
+          ></ion-icon>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="dataToSend.length > 0" class="sub-container color-header">
+      <div class="amount-column">
+        <label>Monto</label>
+      </div>
+      <div class="number-column">
+        <label>Números</label>
+      </div>
+    </div>
+    <div class="sub-container" *ngFor="let element of dataToSend">
+      <div class="amount-column back-blue">
+        <ion-input type="number" value="{{element.monto}}"></ion-input>
+      </div>
+      <div class="number-column back-blue">
+        <ion-chip *ngFor="let number of element.numeros">
+          <ion-label>{{number}}</ion-label>
+          <ion-icon
+            name="close"
+            (click)="removeChip(number,element.monto)"
+          ></ion-icon>
+        </ion-chip>
+      </div>
+    </div>
+    <div class="button-container-div">
+      <ion-button (click)="submit()" *ngIf="dataToSend.length > 0"
+        >Comprar</ion-button
+      >
+    </div>
+</div>

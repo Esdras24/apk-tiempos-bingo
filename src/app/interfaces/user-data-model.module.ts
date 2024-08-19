@@ -1,6 +1,6 @@
 export interface UserDataEntity {
   sinpeBanca: string;
-  emailBanca: string;
+  nameBanca: string;
   sinpeUser: string;
   acountUser: string;
 }

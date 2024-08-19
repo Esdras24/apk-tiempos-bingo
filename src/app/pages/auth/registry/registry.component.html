@@ -2,6 +2,10 @@
   <div class="sub">
     <form [formGroup]="registryFormGroup">
       <div class="input-container">
+        <label class="label">Nombre</label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </div>
+      <div class="input-container">
         <label class="label">Cedula</label>
         <ion-input type="number" formControlName="userID"></ion-input>
       </div>

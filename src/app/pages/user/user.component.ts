@@ -3,6 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { UserDataEntity } from 'src/app/interfaces/user-data-model.module';
 import { UserEntity } from 'src/app/interfaces/user-model.module';
 import { UserService } from './user.service';
+import { FolderService } from '../folder/folder.service';
 
 @Component({
   selector: 'app-user',
@@ -15,11 +16,12 @@ export class UserComponent implements OnInit {
     sinpeUser: '',
     sinpeBanca: '',
     acountUser: '',
-    emailBanca: '',
+    nameBanca: '',
   };
   constructor(
     private userService: UserService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private folderService: FolderService
   ) {}
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class UserComponent implements OnInit {
           sinpeUser: result.sinpe,
           sinpeBanca: result.tel,
           acountUser: result.cuenta,
-          emailBanca: result.correo,
+          nameBanca: result.nombreSinpe,
         };
       },
       async (error) => {
@@ -43,5 +45,26 @@ export class UserComponent implements OnInit {
         toast.present();
       }
     );
+
+    this.getUserInfo();
   }
+
+  getUserInfo = async () => {
+    (await this.folderService.getUserInfo()).subscribe(
+      async (result) => {
+        this.user.saldo = parseInt(result.monedero).toLocaleString('es-MX');
+        this.user.bonus = parseInt(result.bonus).toLocaleString('es-MX');
+
+        await this.folderService.setUser(this.user);
+      },
+      async (error) => {
+        console.log(error);
+        const toast = await this.toastController.create({
+          message: 'Error cargando la informacaion de usuario',
+          duration: 2000,
+        });
+        toast.present();
+      }
+    );
+  };
 }

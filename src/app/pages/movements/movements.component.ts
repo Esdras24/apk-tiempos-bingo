@@ -155,6 +155,25 @@ export class MovementsComponent implements OnInit {
     }
   }
 
+  getUserInfo = async () => {
+    (await this.folderService.getUserInfo()).subscribe(
+      async (result) => {
+        this.user.saldo = parseInt(result.monedero).toLocaleString('es-MX');
+        this.user.bonus = parseInt(result.bonus).toLocaleString('es-MX');
+
+        await this.folderService.setUser(this.user);
+      },
+      async (error) => {
+        console.log(error);
+        const toast = await this.toastController.create({
+          message: 'Error cargando la informacaion de usuario',
+          duration: 2000,
+        });
+        toast.present();
+      }
+    );
+  };
+  
   ngOnInit() {
     const appDate = new Date();
     this.date = moment(appDate).format('DD-MM-YYYY');

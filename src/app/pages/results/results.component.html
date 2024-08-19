@@ -1,12 +1,12 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="">
   <ion-toolbar>
     <ion-buttons slot="start" class="color-header">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <div class="main-div-header color-header">
       <h5>
-        Saldo: <strong>{{ user.saldo }}</strong> | Premios
-        <strong>{{ user.bonus }}</strong>
+        Saldo: <strong>{{ user?.saldo }}</strong> | Premios
+        <strong>{{ user?.bonus }}</strong>
       </h5>
     </div>
   </ion-toolbar>

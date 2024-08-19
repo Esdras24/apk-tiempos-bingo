@@ -6,7 +6,7 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss'],
 })
-export class InfoComponent implements OnInit {
+export class InfoComponent {
   @Input() public info: any;
   @Input() public type: string;
   constructor(private modalController: ModalController) {}
@@ -15,7 +15,4 @@ export class InfoComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  ngOnInit() {
-    console.log(this.info);
-  }
 }

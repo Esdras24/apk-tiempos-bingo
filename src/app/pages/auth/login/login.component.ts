@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
               await this.openModal(data.messages, 'mensaje');
             }
             this.authService.setUser(data);
-            this.router.navigate(['/app']);
+            this.router.navigate(['/app/sell']);
             break;
           }
           case 'Estas inactivo en nuestra plataforma': {

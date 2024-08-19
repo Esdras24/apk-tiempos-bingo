@@ -1,12 +1,12 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="">
   <ion-toolbar>
     <ion-buttons slot="start" class="color-header">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <div class="main-div-header color-header">
       <h5>
-        Saldo: <strong>{{ user.saldo }}</strong> | Premios
-        <strong>{{ user.bonus }}</strong>
+        Saldo: <strong>{{ user?.saldo }}</strong> | Premios
+        <strong>{{ user?.bonus }}</strong>
       </h5>
     </div>
   </ion-toolbar>
@@ -33,14 +33,14 @@
       </div>
       <div class="sub-container-main">
         <div class="sub-tittle">
-          <h5>Email</h5>
+          <h5>A nombre de</h5>
         </div>
         <div class="sub-container-div">
           <div class="icon-column">
-            <ion-icon name="at-outline"></ion-icon>
+            <ion-icon name="arrow-redo-outline"></ion-icon>
           </div>
           <div class="info-column-email">
-            {{ userInfo.emailBanca }}
+            {{ userInfo.nameBanca }}
           </div>
         </div>
       </div>
