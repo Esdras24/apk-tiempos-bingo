@@ -12,7 +12,7 @@ import { UserService } from '../user/user.service';
   imports: [IonicModule]
 })
 export class BingoPage implements OnInit{
-  public user: UserEntity;
+  public user!: UserEntity;
   constructor(
     private folderService: FolderService,
     private toastController: ToastController,

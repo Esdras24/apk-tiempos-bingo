@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { SellPage } from './sell.page';
+import { RouterModule } from '@angular/router';
 
 describe('FolderPage', () => {
   let component: SellPage;

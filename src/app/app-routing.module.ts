@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'app',
-    loadChildren: ()=> import('./pages/folder/folder.module').then(m=>m.FolderPageModule),
+    loadChildren: () => import('./pages/folder/folder.module').then( m => m.FolderPageModule)
   },
   {
     path: '**',
@@ -25,7 +25,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
-  exports: [RouterModule],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

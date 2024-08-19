@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import * as moment from 'moment';
 import { UserEntity } from 'src/app/interfaces/user-model.module';
 import { TicketComponent } from '../ticket/ticket.component';
 import { FolderService } from '../folder/folder.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { FolderService } from '../folder/folder.service';
   styleUrls: ['./sell.page.scss'],
 })
 export class SellPage implements OnInit {
-  @ViewChild('numberInput') numberInput;
+  @ViewChild('numberInput') numberInput:any;
   public ticketDataFormGroup = new FormGroup({
     raffle: new FormControl('', [Validators.required]),
     total: new FormControl('0'),
@@ -23,10 +23,10 @@ export class SellPage implements OnInit {
       Validators.maxLength(2),
     ]),
   });
-  public folder: string;
-  user: UserEntity;
-  public raffles = [];
-  public dataToSend = [];
+  public folder!: string;
+  user!: UserEntity;
+  public raffles: any[] = [];
+  public dataToSend: any[] = [];
 
   constructor(
     private folderService: FolderService,
@@ -92,7 +92,7 @@ export class SellPage implements OnInit {
       let needAdd = true;
 
       //validar el numero
-      if (parseInt(number) > 99 || parseInt(number) < 0 || number === '') {
+      if (parseInt(number ?? '') > 99 || parseInt(number ?? '') < 0 || number === '') {
         const toast = await this.toastController.create({
           message: 'Número inválido',
           duration: 2000,
@@ -101,7 +101,7 @@ export class SellPage implements OnInit {
       } else {
         //se busca el monto en el data
         this.dataToSend.map((element) => {
-          if (parseInt(element.monto) === parseInt(amount)) {
+          if (parseInt(element.monto ?? '') === parseInt(amount ?? '')) {
             element.numeros.push(number);
             needAdd = false;
           }
@@ -115,10 +115,10 @@ export class SellPage implements OnInit {
           });
         }
 
-        let subTotal = parseInt(this.ticketDataFormGroup.controls.total.value);
+        let subTotal = parseInt(this.ticketDataFormGroup.controls.total.value ?? '');
 
         let toAdd = parseInt(
-          this.ticketDataFormGroup.controls.amountInput.value
+          this.ticketDataFormGroup.controls.amountInput.value ?? ''
         );
         if (
           raffle === 'Rev Dia' ||
@@ -147,7 +147,7 @@ export class SellPage implements OnInit {
       }
       return element;
     });
-    let subTotal = parseInt(this.ticketDataFormGroup.controls.total.value);
+    let subTotal = parseInt(this.ticketDataFormGroup.controls.total.value ?? '');
     const raffle = this.ticketDataFormGroup.controls.raffle.value;
 
     if (
@@ -196,8 +196,8 @@ export class SellPage implements OnInit {
               this.openModal(
                 parseInt(result.mensaje),
                 this.dataToSend,
-                sorteo,
-                this.ticketDataFormGroup.controls.total.value
+                sorteo ?? '',
+                this.ticketDataFormGroup.controls.total.value ?? ''
               );
               this.dataToSend = [];
               this.ticketDataFormGroup.controls.total.setValue('0');
@@ -237,9 +237,9 @@ export class SellPage implements OnInit {
   };
 
   async ngOnInit() {
-    this.dataToSend = [];
     this.user = await this.folderService.getUser();
-    this.getRaffles();
     this.getUserInfo();
+    this.dataToSend = [];
+    this.getRaffles();
   }
 }

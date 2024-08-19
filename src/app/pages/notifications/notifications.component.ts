@@ -13,7 +13,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class NotificationsComponent implements OnInit {
   public data: any;
-  public user: UserEntity;
+  public user!: UserEntity;
   constructor(
     private notificationsService: NotificacionsService,
     private userService: UserService,
@@ -31,7 +31,7 @@ export class NotificationsComponent implements OnInit {
       .getList(moment(date1).format('YYYY-MM-DD'), date2)
       .subscribe(
         (result) => {
-          this.data = result.filter((e) => {
+          this.data = result.filter((e: any) => {
             if (e) {
               return e;
             }

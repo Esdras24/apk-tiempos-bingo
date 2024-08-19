@@ -11,7 +11,7 @@ export class NotificacionsService {
   constructor(private http: HttpClient) {}
 
   getUser(): any {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('user') ?? '');
   }
 
   getList = (date1: string, date2: string) => {

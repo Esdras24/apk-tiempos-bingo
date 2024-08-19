@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { SortType } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
@@ -7,6 +6,7 @@ import { UserEntity } from 'src/app/interfaces/user-model.module';
 import { FolderService } from '../folder/folder.service';
 import { TicketComponent } from '../ticket/ticket.component';
 import { TicketsService } from './tickets.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-tickets',
@@ -17,8 +17,8 @@ export class TicketsComponent implements OnInit {
   public showDateTime = false;
   public date = '';
   public columns: any;
-  public user: UserEntity;
-  public rows = [];
+  public user!: UserEntity;
+  public rows: any[] = [];
   public SortType = SortType;
   public ticketGroup = new FormGroup({
     date: new FormControl(),
@@ -38,7 +38,7 @@ export class TicketsComponent implements OnInit {
     ];
   }
 
-  reloadTicket(ticket) {
+  reloadTicket(ticket: any) {
     this.ticketsService.reviewTicket(ticket).subscribe(
       async (result) => {
         let data = [];
@@ -48,7 +48,7 @@ export class TicketsComponent implements OnInit {
         let total = 0;
         let date = '';
         let reventadoEnSorteos = false;
-        const lastIndex = result.length - 2;
+        const lastIndex = result.length - 1;
 
         for (let index = 0; index < result.length; index++) {
           const element = result[index];

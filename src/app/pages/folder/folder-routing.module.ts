@@ -5,8 +5,8 @@ import { SellPage } from '../sell/sell.page';
 import { MovementsComponent } from '../movements/movements.component';
 import { TicketsComponent } from '../tickets/tickets.component';
 import { UserComponent } from '../user/user.component';
-import { ResultsComponent } from '../results/results.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { ResultsComponent } from '../results/results.component';
 import { BingoPage } from '../bingo/bingo.page';
 
 const routes: Routes = [
@@ -15,7 +15,7 @@ const routes: Routes = [
     component: FolderPage,
     children:[
       {
-        path: 'sell', 
+        path: 'sell',
         component: SellPage
       },
       {
@@ -31,12 +31,12 @@ const routes: Routes = [
         component: UserComponent,
       },
       {
-        path: 'results',
-        component: ResultsComponent,
-      },
-      {
         path: 'notifications',
         component: NotificationsComponent,
+      },
+      {
+        path: 'results',
+        component: ResultsComponent,
       },
       {
         path: 'bingo',

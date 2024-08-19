@@ -1,8 +1,7 @@
 {
-  "name": "tiempos",
+  "name": "bingo-tiempos",
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular",
-  "id": "4f9c8610"
+  "type": "angular"
 }

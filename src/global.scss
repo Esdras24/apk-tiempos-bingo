@@ -26,25 +26,22 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 //dataTable CSS
-@import "@swimlane/ngx-datatable/index.css";
+@import "node_modules/@swimlane/ngx-datatable/index.css";
 //@import "@swimlane/ngx-datatable/themes/material.scss";
-@import "@swimlane/ngx-datatable/assets/icons.css";
+@import "node_modules/@swimlane/ngx-datatable/assets/icons.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
 
 .color-header {
-  background-color: #03a9f4;
-  color: white;
-}
-
-.menu-bar {
-  background-color: #03a9f4;
-  border-radius: 5px;
-}
-
-.white-color-text {
-  color: white !important;
-}
-
-.input-background {
-  background-color: #b3e5fc;
-  border-radius: 10px;
-}
+    background-color: #03a9f4;
+    color: white;
+  }

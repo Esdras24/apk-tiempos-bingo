@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
-import { UserEntity } from 'src/app/interfaces/user-model.module';
+import { addIcons } from 'ionicons';
+import {
+  alertCircleOutline,
+  archiveOutline,
+  cartOutline,
+  cashOutline,
+  exitOutline,
+  fileTrayStackedOutline,
+  personOutline,
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-folder',
@@ -7,8 +16,6 @@ import { UserEntity } from 'src/app/interfaces/user-model.module';
   styleUrls: ['./folder.page.scss'],
 })
 export class FolderPage {
-  user: UserEntity;
-
   public appPages = [
     { title: 'Venta', url: '/app/sell', icon: 'cart-outline' },
     { title: 'Movimientos', url: '/app/movements', icon: 'archive-outline' },
@@ -28,6 +35,15 @@ export class FolderPage {
     { title: 'Cerrar Sesion', url: '/login', icon: 'exit-outline' },
   ];
 
-  constructor() {}
-  
+  constructor() {
+    addIcons({
+      cartOutline,
+      archiveOutline,
+      fileTrayStackedOutline,
+      personOutline,
+      alertCircleOutline,
+      cashOutline,
+      exitOutline
+    });
+  }
 }

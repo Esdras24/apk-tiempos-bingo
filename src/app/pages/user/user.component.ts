@@ -11,7 +11,7 @@ import { FolderService } from '../folder/folder.service';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
-  public user: UserEntity;
+  public user!: UserEntity;
   public userInfo: UserDataEntity = {
     sinpeUser: '',
     sinpeBanca: '',

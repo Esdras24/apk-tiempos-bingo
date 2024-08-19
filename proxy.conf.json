@@ -1,7 +1,0 @@
-{
-  "/api/*": {
-    "target": "http://tiemposvictoria.com",
-    "secure": false,
-    "logLevel": "debug"
-  }
-}

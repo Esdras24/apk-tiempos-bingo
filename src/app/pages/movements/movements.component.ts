@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { SortType } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
 import { UserEntity } from 'src/app/interfaces/user-model.module';
 import { FolderService } from '../folder/folder.service';
 import { MovementsService } from './movements.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-movements',
@@ -17,7 +17,7 @@ export class MovementsComponent implements OnInit {
   public date = '';
   public columns: any;
   public rows = [];
-  public user: UserEntity;
+  public user!: UserEntity;
   public SortType = SortType;
   public dateGroup = new FormGroup({
     date: new FormControl(),

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule, ToastController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { catchError, map } from 'rxjs/operators';
 import { AuthInterface } from 'src/app/interfaces/bingo-interfaces.modules';
-import { Router } from '@angular/router';
 import { BINGO_API_RES_MESSAGE } from 'src/app/shared/constants';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { RegistryData } from 'src/app/interfaces/registry.module';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registry',
@@ -46,11 +46,11 @@ export class RegistryComponent implements OnInit {
       this.registryFormGroup.controls.confirmPassword.value
     ) {
       const registryData: RegistryData = {
-        name: this.registryFormGroup.controls.name.value,
-        userId: this.registryFormGroup.controls.userID.value,
-        telephone: this.registryFormGroup.controls.telephone.value,
-        sinpe: this.registryFormGroup.controls.sinpe.value,
-        password: this.registryFormGroup.controls.password.value,
+        name: this.registryFormGroup.controls.name.value ?? '',
+        userId: this.registryFormGroup.controls.userID.value ?? 0,
+        telephone: this.registryFormGroup.controls.telephone.value ?? 0,
+        sinpe: this.registryFormGroup.controls.sinpe.value ?? 0,
+        password: this.registryFormGroup.controls.password.value ?? '',
       };
 
       if (registryData.userId.toString().length < 9) {
@@ -79,7 +79,7 @@ export class RegistryComponent implements OnInit {
     }
   }
 
-  async bingoLogin(registryData){
+  async bingoLogin(registryData: RegistryData){
     this.authService.bingoLogin().subscribe(
       (res: AuthInterface)=>{
         if (res.authorisation.token) {
@@ -92,7 +92,7 @@ export class RegistryComponent implements OnInit {
     );
   }
 
-  async createBingoUser(registryData, token:string){
+  async createBingoUser(registryData: RegistryData, token:string){
     
     this.authService.registryBingoUser(registryData, token ).pipe(
       map(
@@ -124,7 +124,7 @@ export class RegistryComponent implements OnInit {
   async deleteSistemUser(){
     if (this.deleteUser) {
       this.deleteUser = false;
-      this.authService.deleteUser(this.registryFormGroup.controls.userID.value).pipe(
+      this.authService.deleteUser(this.registryFormGroup.controls.userID.value ?? 0).pipe(
         map(
           async (res: any)=>{
             console.log(res);

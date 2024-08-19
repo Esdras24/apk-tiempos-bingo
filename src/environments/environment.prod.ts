@@ -4,6 +4,7 @@ export const environment = {
   url: 'https://tiemposbingoregalado.com',
 };
 
+
 export const bingoCredentials = {
   url: 'https://bingoregalado.com/api-bingo-regalado/api',
   email: 'sistematiempos-apiclient@bingoregalado.com',

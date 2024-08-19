@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   getUser(): any {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('user') ?? '');
   }
 
   setUser(user: UserEntity): void {
@@ -31,9 +31,9 @@ export class AuthService {
     datas.append('version', '8');
 
     return this.http
-      .post<any>(`${environment.url}/movil/indexprueba.php`, datas)
+      .post<UserEntity>(`${environment.url}/movil/indexprueba.php`, datas)
       .pipe(
-        catchError((error: Response): Observable<Response> => throwError(error))
+        catchError((error: Response): Observable<UserEntity> => throwError(error))
       );
   }
 
@@ -49,7 +49,7 @@ export class AuthService {
     return this.http
       .post<any>(`${environment.url}/movil/registry.php`, datas)
       .pipe(
-        catchError((error: Response): Observable<Response> => throwError(error))
+        catchError((error: Response): Observable<UserEntity> => throwError(error))
       );
   }
 
@@ -61,7 +61,7 @@ export class AuthService {
     return this.http
       .post<any>(`${environment.url}/movil/delete-user.php`, datas)
       .pipe(
-        catchError((error: Response): Observable<Response> => throwError(error))
+        catchError((error: Response): Observable<UserEntity> => throwError(error))
       );
   }
 
@@ -79,7 +79,7 @@ export class AuthService {
         }
       })
       .pipe(
-        catchError((error: Response): Observable<Response> => throwError(error))
+        catchError((error: Response): Observable<UserEntity> => throwError(error))
       );
   }
 
@@ -91,7 +91,7 @@ export class AuthService {
     return this.http
       .post<any>(`${bingoCredentials.url}/login`, datas)
       .pipe(
-        catchError((error: Response): Observable<Response> => throwError(error))
+        catchError((error: Response): Observable<AuthInterface> => throwError(error))
       );
   }
 }

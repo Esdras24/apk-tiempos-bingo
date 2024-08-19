@@ -11,8 +11,8 @@ import { FolderService } from '../folder/folder.service';
   styleUrls: ['./results.component.scss'],
 })
 export class ResultsComponent implements OnInit {
-  public data = [];
-  public user: UserEntity;
+  public data: any[] = [];
+  public user!: UserEntity;
   constructor(
     private resultService: ResultsService,
     private toastController: ToastController,

@@ -10,7 +10,7 @@ export class MovementsService {
   constructor(private http: HttpClient) {}
 
   getUser(): any {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('user') ?? '');
   }
 
   getList = (date: string) => {

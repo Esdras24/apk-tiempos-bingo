@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { UserEntity } from 'src/app/interfaces/user-model.module';
 import { InfoComponent } from '../../info/info.component';
 import { AuthService } from '../auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  authFormGroup: FormGroup;
+  authFormGroup!: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       async (data) => {
         switch (data.estado) {
           case 'm': {
-            if (data.messages.length > 0) {
+            if (data?.messages?.length) {
               await this.openModal(data.messages, 'mensaje');
             }
             this.authService.setUser(data);

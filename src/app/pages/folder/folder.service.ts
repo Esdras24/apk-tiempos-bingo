@@ -12,7 +12,7 @@ export class FolderService {
   constructor(private http: HttpClient) {}
 
   getUser(): any {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('user') ?? '');
   }
 
   async setUser(user: UserEntity): Promise<void> {
