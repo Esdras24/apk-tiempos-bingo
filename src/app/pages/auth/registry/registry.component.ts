@@ -28,9 +28,9 @@ export class RegistryComponent implements OnInit {
     telephone: new FormControl(null, [Validators.required]),
     sinpe: new FormControl(null, [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required]),
   });
   deleteUser = false;
+  showPassword = false;
   
   constructor(
     private authService: AuthService,
@@ -41,10 +41,7 @@ export class RegistryComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    if (
-      this.registryFormGroup.controls.password.value ===
-      this.registryFormGroup.controls.confirmPassword.value
-    ) {
+    
       const registryData: RegistryData = {
         name: this.registryFormGroup.controls.name.value ?? '',
         userId: this.registryFormGroup.controls.userID.value ?? 0,
@@ -65,7 +62,9 @@ export class RegistryComponent implements OnInit {
             async (res: any)=>{
               if(parseInt(res.code) === 1){
                 this.deleteUser = true;
-                await this.bingoLogin(registryData);
+                //await this.bingoLogin(registryData);
+                this.presentToast('Usuario creado correctamente.', 'success');
+                this.router.navigate(['/login']);
               } else {
                 this.presentToast(res.estado, 'danger');
               }
@@ -74,9 +73,10 @@ export class RegistryComponent implements OnInit {
         ).subscribe();
       }
 
-    } else {
-      this.presentToast('Las contraseñas deben ser iguales.', 'danger');
-    }
+  }
+
+  goBack(){
+    this.router.navigate(['/login']);
   }
 
   async bingoLogin(registryData: RegistryData){
@@ -99,7 +99,7 @@ export class RegistryComponent implements OnInit {
         async (res: any)=>{
           if(res.success){
             this.presentToast('Usuario creado correctamente.', 'success');
-            this.router.navigate(['/app']);
+            this.router.navigate(['/app/sell']);
           } 
         }
       ),

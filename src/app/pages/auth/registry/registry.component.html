@@ -1,43 +1,64 @@
-<div class="main">
-  <div class="sub">
-    <form [formGroup]="registryFormGroup">
-      <div class="input-container">
-        <label class="label">Nombre</label>
-        <ion-input type="text" formControlName="name"></ion-input>
-      </div>
-      <div class="input-container">
-        <label class="label">Cedula</label>
-        <ion-input type="number" formControlName="userID"></ion-input>
-      </div>
-      <div class="input-container">
-        <label class="label">Telefono</label>
-        <ion-input type="number" formControlName="telephone"></ion-input>
-      </div>
-      <div class="input-container">
-        <label class="label">Sinpe</label>
-        <ion-input type="number" formControlName="sinpe"></ion-input>
-      </div>
-      <div class="input-container">
-        <label class="label">Contraseña</label>
-        <ion-input type="password" formControlName="password"></ion-input>
-      </div>
-      <div class="input-container">
-        <label class="label">Confirmar Contraseña</label>
-        <ion-input
-          type="password"
-          formControlName="confirmPassword"
-        ></ion-input>
-      </div>
-
-      <div>
-        <ion-button
-          (click)="onSubmit()"
-          form="authFormGroup"
-          [disabled]="!registryFormGroup.valid"
-        >
-          Registrar
-        </ion-button>
-      </div>
-    </form>
+<div class="main-container">
+  <div class="go-back-div">
+    <ion-icon name="arrow-back-outline" color="tertiary" (click)="goBack()"></ion-icon>
+  </div>
+  <div class="main">
+    <div class="sub">
+      <form [formGroup]="registryFormGroup">
+        <div class="input-container">
+          <ion-input 
+          label="Nombre" 
+          label-placement="floating" 
+          formControlName="name"
+          fill="outline">
+          </ion-input>
+        </div>
+        <div class="input-container">
+          <ion-input 
+          label="Cédula" 
+          label-placement="floating" 
+          formControlName="userID"
+          fill="outline">
+          </ion-input>
+        </div>
+        <div class="input-container">
+          <ion-input 
+          label="Teléfono" 
+          label-placement="floating" 
+          formControlName="telephone"
+          fill="outline">
+          </ion-input>
+        </div>
+        <div class="input-container">
+          <ion-input 
+          label="Sinpe" 
+          label-placement="floating" 
+          formControlName="sinpe"
+          fill="outline">
+          </ion-input>
+        </div>
+        <div class="input-container">
+          <ion-input 
+          label="Contraseña" 
+          label-placement="floating" 
+          formControlName="password"
+          [type]="showPassword ? 'text' : 'password'"
+          fill="outline">
+          <ion-icon style="color: white;" slot="end" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" aria-hidden="true" (click)="showPassword = !showPassword"></ion-icon>
+          </ion-input>
+        </div>
+  
+        <div>
+          <ion-button
+          color="tertiary"
+            (click)="onSubmit()"
+            form="authFormGroup"
+            [disabled]="!registryFormGroup.valid"
+          >
+            Registrar
+          </ion-button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

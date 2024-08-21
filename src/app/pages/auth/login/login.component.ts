@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   authFormGroup!: FormGroup;
-
+  showPassword = false;
   constructor(
     private authService: AuthService,
     private router: Router,

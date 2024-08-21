@@ -1,17 +1,30 @@
 <div class="main">
   <div class="sub">
     <form [formGroup]="authFormGroup">
-      <div>
-        <label>Usuario</label>
-        <ion-input type="number" formControlName="userID"></ion-input>
+      <div class="padding-bottom">
+        <ion-input 
+          label="Cédula" 
+          label-placement="floating" 
+          formControlName="userID"
+          fill="outline">
+          </ion-input>
       </div>
-      <div>
-        <label>Contraseña</label>
-        <ion-input type="password" formControlName="password"></ion-input>
+      <div class="padding-bottom">
+        <ion-input 
+          label="Contraseña" 
+          label-placement="floating" 
+          formControlName="password"
+          [type]="showPassword ? 'text' : 'password'"
+          fill="outline">
+          <ion-icon slot="end" style="color: white;" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" aria-hidden="true" (click)="showPassword = !showPassword"></ion-icon>
+          </ion-input>
       </div>
-      <a [routerLink]="['/registry']">Registrar</a>
+      <div class="padding-bottom">
+        <a [routerLink]="['/registry']">Registrar</a>
+      </div>
       <div>
         <ion-button
+        color="tertiary"
           (click)="onSubmit()"
           form="authFormGroup"
           [disabled]="!authFormGroup.valid"

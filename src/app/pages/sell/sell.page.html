@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" class="">
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start" class="color-header">
       <ion-menu-button></ion-menu-button>
@@ -20,6 +20,7 @@
           <ion-select
             (ionChange)="cambio()"
             formControlName="raffle"
+            class="raffle-select"
           >
             <ion-select-option value="">Seleccione Una</ion-select-option>
             <ion-select-option
@@ -84,7 +85,7 @@
       </div>
     </div>
     <div class="button-container-div">
-      <ion-button (click)="submit()" *ngIf="dataToSend.length > 0"
+      <ion-button (click)="submit()" color="tertiary" *ngIf="dataToSend.length > 0"
         >Comprar</ion-button
       >
     </div>
