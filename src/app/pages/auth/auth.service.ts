@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthInterface } from 'src/app/interfaces/bingo-interfaces.modules';
+import { BancaInterface } from 'src/app/interfaces/local-interface.module';
 import { UserEntity } from 'src/app/interfaces/user-model.module';
+import { appConstants } from 'src/app/shared/constants';
 import { bingoCredentials, environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,6 +26,26 @@ export class AuthService {
     localStorage.removeItem('user');
   }
 
+  setBancaData(user: BancaInterface): void {
+    localStorage.setItem('banca', JSON.stringify(user));
+  }
+
+  getBancaInfo(): BancaInterface {
+    return JSON.parse(localStorage.getItem('banca') ?? '');
+  }
+
+  getAppInfo(): Observable<BancaInterface> {
+    const datas = new FormData();
+    datas.append('lastUser', appConstants.banca);
+    datas.append('ejecutar', 'getInfo');
+
+    return this.http
+      .post<BancaInterface>(`${environment.url}/movil/app-info.php`, datas)
+      .pipe(
+        catchError((error: Response): Observable<BancaInterface> => throwError(error))
+      );
+  }
+  
   login(user: any): Observable<UserEntity> {
     const datas = new FormData();
     datas.append('userID', user.userID);

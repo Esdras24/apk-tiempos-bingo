@@ -17,3 +17,16 @@
 .padding-bottom {
   padding-bottom: 5%;
 }
+
+.input-container{
+  font-size: larger;
+  font-weight: 600;
+}
+
+.whatsapp-icon{
+  position: fixed;
+  bottom: 15px;
+  right: 5px;
+  color: green;
+  font-size: 60px; 
+}

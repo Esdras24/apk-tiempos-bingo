@@ -1,7 +1,7 @@
 <div class="main">
   <div class="sub">
     <form [formGroup]="authFormGroup">
-      <div class="padding-bottom">
+      <div class="padding-bottom input-container">
         <ion-input 
           label="Cédula" 
           label-placement="floating" 
@@ -9,7 +9,7 @@
           fill="outline">
           </ion-input>
       </div>
-      <div class="padding-bottom">
+      <div class="padding-bottom input-container">
         <ion-input 
           label="Contraseña" 
           label-placement="floating" 
@@ -34,4 +34,8 @@
       </div>
     </form>
   </div>
+  <ion-icon class="whatsapp-icon" name="logo-whatsapp" (click)="sendWhatsappRequest()"></ion-icon>
+</div>
+<div>
+  Version {{appVersion}}.
 </div>

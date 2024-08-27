@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicModule, ToastController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { catchError, map } from 'rxjs/operators';
@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
     FormsModule
   ],
 })
-export class RegistryComponent implements OnInit {
+export class RegistryComponent {
   registryFormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     userID: new FormControl(null, [Validators.required]),
@@ -31,14 +31,13 @@ export class RegistryComponent implements OnInit {
   });
   deleteUser = false;
   showPassword = false;
+  backgroungImg = '';
   
   constructor(
     private authService: AuthService,
     private toastController: ToastController,
     private router: Router
   ) {}
-
-  ngOnInit(): void {}
 
   onSubmit() {
     
