@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" *ngIf="!loading; else loadingTemplate">
   <div class="go-back-div">
     <ion-icon name="arrow-back-outline" color="tertiary" (click)="goBack()"></ion-icon>
   </div>
@@ -62,3 +62,8 @@
     </div>
   </div>
 </div>
+<ng-template #loadingTemplate>
+  <div class="main">
+    <ion-spinner name="dots" color="tertiary"></ion-spinner>
+  </div>
+</ng-template>

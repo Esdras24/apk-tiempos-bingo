@@ -7,7 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { appVersion } from 'src/app/shared/constants';
 import { BancaInterface } from 'src/app/interfaces/local-interface.module';
-import { catchError, map, Observable, Subscription, throwError } from 'rxjs';
+import { catchError, map, Subscription, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   appVersion = '';
   bancaInfo!: BancaInterface;
   subscription = new Subscription();
+  loading = false;
 
   constructor(
     private authService: AuthService,
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     this.appVersion = appVersion;
     this.authFormGroup = new FormGroup({
       userID: new FormControl('', [Validators.required]),
@@ -51,59 +53,27 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.loading = true;
     this.subscription.add(
       this.authService
         .login(this.authFormGroup.value)
         .pipe(
           map(async (data) => {
-            switch (data.estado) {
-              case 'm': {
-                if (data?.messages?.length) {
-                  await this.openModal(data.messages, 'mensaje');
-                }
-                this.authService.setUser(data);
-                this.router.navigate(['/app/sell']);
-                break;
-              }
-              case 'Estas inactivo en nuestra plataforma': {
-                const toast = await this.toastController.create({
-                  message: 'Estas inactivo en nuestra plataforma',
-                  duration: 2000,
-                });
-                toast.present();
-                break;
-              }
-              case 'update': {
-                await this.openModal(
-                  [
-                    {
-                      message:
-                        'Necesitas Actualizar la aplicacion, Contacta a servicio al cliente',
-                    },
-                  ],
-                  'update'
-                );
-                break;
-              }
-              case 'Contrasena Erronea': {
-                const toast = await this.toastController.create({
-                  message: 'Contraseña Erronea',
-                  duration: 2000,
-                });
-                toast.present();
-                break;
-              }
-              default: {
-                const toast = await this.toastController.create({
-                  message: 'No tienes permiso de ingresar',
-                  duration: 2000,
-                });
-                toast.present();
-                break;
-              }
+            this.loading = false;
+            if (data?.messages?.length) {
+              await this.openModal(data.messages, 'mensaje');
             }
+            this.authService.setUser(data);
+            this.router.navigate(['/app/sell']);
           }),
-          catchError((errors: HttpErrorResponse) => {
+          catchError(async (errors: HttpErrorResponse) => {
+            const toast = await this.toastController.create({
+              message: errors.error,
+              duration: 2000,
+              color: 'danger'
+            });
+            toast.present();
+            this.loading = false;
             return throwError(() => errors);
           })
         )
@@ -125,10 +95,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         .getAppInfo()
         .pipe(
           map((res: BancaInterface) => {
+            this.loading = false;
             this.bancaInfo = res;
             this.authService.setBancaData(res); 
           }),
           catchError((error: HttpErrorResponse) => {
+            this.loading = false;
             return throwError(() => error);
           })
         )

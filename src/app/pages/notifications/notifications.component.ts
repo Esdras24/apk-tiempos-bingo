@@ -14,6 +14,7 @@ import { ToastController } from '@ionic/angular';
 export class NotificationsComponent implements OnInit {
   public data: any;
   public user!: UserEntity;
+  loading = false;
   constructor(
     private notificationsService: NotificacionsService,
     private userService: UserService,
@@ -22,6 +23,7 @@ export class NotificationsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     this.user = this.userService.getUser();
     const date = new Date();
     this.getUserInfo();
@@ -36,8 +38,10 @@ export class NotificationsComponent implements OnInit {
               return e;
             }
           });
+          this.loading = false;
         },
         (error) => {
+          this.loading = false;
           console.log(error);
         }
       );

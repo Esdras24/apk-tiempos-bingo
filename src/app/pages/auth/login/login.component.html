@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main" *ngIf="!loading; else loadingTemplate">
   <div class="sub">
     <form [formGroup]="authFormGroup">
       <div class="padding-bottom input-container">
@@ -36,6 +36,13 @@
   </div>
   <ion-icon class="whatsapp-icon" name="logo-whatsapp" (click)="sendWhatsappRequest()"></ion-icon>
 </div>
+
+<ng-template #loadingTemplate>
+  <div class="main">
+    <ion-spinner name="dots" color="tertiary"></ion-spinner>
+  </div>
+</ng-template>
+
 <div>
   Version {{appVersion}}.
 </div>

@@ -13,6 +13,7 @@ import { FolderService } from '../folder/folder.service';
 export class ResultsComponent implements OnInit {
   public data: any[] = [];
   public user!: UserEntity;
+  loading = false;
   constructor(
     private resultService: ResultsService,
     private toastController: ToastController,
@@ -20,11 +21,13 @@ export class ResultsComponent implements OnInit {
   ) {}
 
   cargarGanadores = () => {
+    this.loading = true;
     const date = new Date();
     const actualDate = moment(date).format('YYYY-MM-DD');
 
     this.resultService.getList(actualDate).subscribe(
       (result) => {
+        this.loading = false;
         if (result?.data?.length) {
           let ultimoSorteo = '';
           let ultimo = result.data.length - 1;
@@ -68,7 +71,8 @@ export class ResultsComponent implements OnInit {
           }
         }
       },
-      async (error) => {
+      async () => {
+        this.loading = false;
         const toast = await this.toastController.create({
           message: 'Error cargando los números ganadores',
           duration: 2000,

@@ -24,7 +24,8 @@ export class TicketsComponent implements OnInit {
     date: new FormControl(),
     ticketNumber: new FormControl(null),
   });
-
+  loading = false;
+  
   constructor(
     private ticketsService: TicketsService,
     private folderService: FolderService,
@@ -48,7 +49,6 @@ export class TicketsComponent implements OnInit {
         let total = 0;
         let date = '';
         let reventadoEnSorteos = false;
-        const lastIndex = result.length - 1;
 
         for (let index = 0; index < result.length; index++) {
           const element = result[index];
@@ -59,16 +59,14 @@ export class TicketsComponent implements OnInit {
               data = [];
               lastAmount = '';
               numbers = [];
-              raffle = '';
+              raffle = element.horario;
               total = 0;
 
-              if (element.tipo === 'Reventados' && index === 0) {
                 //se inicia con el valor de index 0
                 total = total + parseInt(element.monto);
                 numbers = [element.numero];
                 lastAmount = element.monto;
-              }
-              index = 0;
+            
             } else {
               if (
                 (reventadoEnSorteos && element.tipo === 'Reventados') ||
@@ -91,16 +89,15 @@ export class TicketsComponent implements OnInit {
                   lastAmount = element.monto;
                 }
               }
-
-              if (lastIndex === index) {
-                data.push({
-                  monto: lastAmount,
-                  numeros: numbers,
-                });
-              }
             }
           }
         }
+
+          data.push({
+            monto: lastAmount,
+            numeros: numbers,
+          });
+        
 
         if (reventadoEnSorteos) {
           total = total * 2;
@@ -126,6 +123,7 @@ export class TicketsComponent implements OnInit {
   }
 
   getList() {
+    this.loading = true;
     const dateToSend = this.ticketGroup.controls.date.value
       ? this.ticketGroup.controls.date.value
       : new Date();
@@ -133,9 +131,11 @@ export class TicketsComponent implements OnInit {
       .getList(moment(dateToSend).format('YYYY-MM-DD'))
       .subscribe(
         (result) => {
+          this.loading = false;
           this.rows = result.data;
         },
         (error) => {
+          this.loading = false;
           console.log(error);
         }
       );
@@ -143,11 +143,13 @@ export class TicketsComponent implements OnInit {
 
   deleteTicket() {
     if (this.ticketGroup.controls.ticketNumber.value) {
+      this.loading = true;
       this.ticketsService
         .ticketDelete(`${this.ticketGroup.controls.ticketNumber.value}`)
         .subscribe(
-          (result) => {},
+          (result) => {this.loading = false;},
           (error) => {
+            this.loading = false;
             if (error.error.text === 'Eliminado Exitosamente') {
               this.getUserInfo();
               this.toastController

@@ -26,6 +26,7 @@ export class TicketComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.raffle);
     switch (this.raffle) {
       case 'Rev Dia': {
         this.subRaffle = 'Digital Dia';

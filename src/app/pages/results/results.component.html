@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="main-div">
+<ion-content class="main-div" *ngIf="!loading; else loadingTemplate">
   <div class="body-header">
     <h2><strong>Resultados del día</strong></h2>
   </div>
@@ -34,3 +34,8 @@
     </div>
   </div>
 </ion-content>
+<ng-template #loadingTemplate>
+  <div class="main">
+    <ion-spinner name="dots" color="tertiary"></ion-spinner>
+  </div>
+</ng-template>

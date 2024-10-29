@@ -4,6 +4,10 @@ import { UserDataEntity } from 'src/app/interfaces/user-data-model.module';
 import { UserEntity } from 'src/app/interfaces/user-model.module';
 import { UserService } from './user.service';
 import { FolderService } from '../folder/folder.service';
+import { catchError, map, Subscription, throwError } from 'rxjs';
+import { BancaInterface } from 'src/app/interfaces/local-interface.module';
+import { AuthService } from '../auth/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user',
@@ -18,14 +22,19 @@ export class UserComponent implements OnInit {
     acountUser: '',
     nameBanca: '',
   };
+  bancaInfo!: BancaInterface;
+  subscription = new Subscription();
+  loading = false;
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private toastController: ToastController,
     private folderService: FolderService
   ) {}
 
   ngOnInit() {
     this.user = this.userService.getUser();
+    this.getAppInfo();
 
     this.userService.getUserInfo(this.user.userName).subscribe(
       (result) => {
@@ -50,14 +59,17 @@ export class UserComponent implements OnInit {
   }
 
   getUserInfo = async () => {
+    this.loading = true;
     (await this.folderService.getUserInfo()).subscribe(
       async (result) => {
         this.user.saldo = parseInt(result.monedero).toLocaleString('es-MX');
         this.user.bonus = parseInt(result.bonus).toLocaleString('es-MX');
 
         await this.folderService.setUser(this.user);
+        this.loading = false;
       },
       async (error) => {
+        this.loading = false;
         console.log(error);
         const toast = await this.toastController.create({
           message: 'Error cargando la informacaion de usuario',
@@ -67,4 +79,16 @@ export class UserComponent implements OnInit {
       }
     );
   };
+
+  sendWhatsappRequest() {
+    const urlWhatsapp =
+      'https://wa.me/+506' +
+      this.bancaInfo.whatsapp +
+      "?text='Buenas me pueden ayudar con...'";
+    window.open(urlWhatsapp);
+  }
+
+  getAppInfo() {
+    this.bancaInfo = this.authService.getBancaInfo();
+  }
 }

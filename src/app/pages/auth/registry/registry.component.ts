@@ -9,6 +9,7 @@ import { throwError } from 'rxjs';
 import { RegistryData } from 'src/app/interfaces/registry.module';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registry',
@@ -18,7 +19,8 @@ import { Router } from '@angular/router';
   imports: [
     IonicModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
 })
 export class RegistryComponent {
@@ -32,6 +34,7 @@ export class RegistryComponent {
   deleteUser = false;
   showPassword = false;
   backgroungImg = '';
+  loading = false;
   
   constructor(
     private authService: AuthService,
@@ -56,14 +59,17 @@ export class RegistryComponent {
       }else if (registryData.password.toString().length < 6) {
         this.presentToast('La contraseña debe tener al menos 6 dígitos.', 'danger');
       }else{
+        this.loading = true;
         this.authService.registry(registryData).pipe(
           map(
             async (res: any)=>{
+              this.loading = false;
               if(parseInt(res.code) === 1){
                 this.deleteUser = true;
                 //await this.bingoLogin(registryData);
                 this.presentToast('Usuario creado correctamente.', 'success');
-                this.router.navigate(['/login']);
+                this.authService.setUser(res);
+                this.router.navigate(['/app/sell']);
               } else {
                 this.presentToast(res.estado, 'danger');
               }
@@ -78,7 +84,7 @@ export class RegistryComponent {
     this.router.navigate(['/login']);
   }
 
-  async bingoLogin(registryData: RegistryData){
+  /*async bingoLogin(registryData: RegistryData){
     this.authService.bingoLogin().subscribe(
       (res: AuthInterface)=>{
         if (res.authorisation.token) {
@@ -89,9 +95,9 @@ export class RegistryComponent {
         this.deleteSistemUser();
       }
     );
-  }
+  }*/
 
-  async createBingoUser(registryData: RegistryData, token:string){
+  /*async createBingoUser(registryData: RegistryData, token:string){
     
     this.authService.registryBingoUser(registryData, token ).pipe(
       map(
@@ -118,9 +124,9 @@ export class RegistryComponent {
         }
       )
     ).subscribe();
-  }
+  }*/
 
-  async deleteSistemUser(){
+  /*async deleteSistemUser(){
     if (this.deleteUser) {
       this.deleteUser = false;
       this.authService.deleteUser(this.registryFormGroup.controls.userID.value ?? 0).pipe(
@@ -138,7 +144,7 @@ export class RegistryComponent {
         )
       ).subscribe();
     }
-  }
+  }*/
 
   async presentToast(message:string, color: string){
     const toast = await this.toastController.create({

@@ -13,6 +13,7 @@ import { UserService } from '../user/user.service';
 })
 export class BingoPage implements OnInit{
   public user!: UserEntity;
+  loading = false;
   constructor(
     private folderService: FolderService,
     private toastController: ToastController,
@@ -25,15 +26,17 @@ export class BingoPage implements OnInit{
   }
 
   getUserInfo = async () => {
+    this.loading = true;
     (await this.folderService.getUserInfo()).subscribe(
       async (result) => {
+        this.loading = false;
         this.user.saldo = parseInt(result.monedero).toLocaleString('es-MX');
         this.user.bonus = parseInt(result.bonus).toLocaleString('es-MX');
 
         await this.folderService.setUser(this.user);
       },
-      async (error) => {
-        console.log(error);
+      async () => {
+        this.loading = false;
         const toast = await this.toastController.create({
           message: 'Error cargando la informacaion de usuario',
           duration: 2000,

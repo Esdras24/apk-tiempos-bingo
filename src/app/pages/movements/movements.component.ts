@@ -6,6 +6,8 @@ import { UserEntity } from 'src/app/interfaces/user-model.module';
 import { FolderService } from '../folder/folder.service';
 import { MovementsService } from './movements.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { catchError, map, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-movements',
@@ -22,7 +24,7 @@ export class MovementsComponent implements OnInit {
   public dateGroup = new FormGroup({
     date: new FormControl(),
   });
-
+  loading = false;
   public moveGroup = new FormGroup({
     rechargeRequest: new FormControl(null),
     depositRequest: new FormControl(null),
@@ -43,64 +45,69 @@ export class MovementsComponent implements OnInit {
   }
 
   getList() {
+    this.loading = true;
     const dateToSend = this.dateGroup.controls.date.value
       ? this.dateGroup.controls.date.value
       : new Date();
     this.movementService
-      .getList(moment(dateToSend).format('YYYY-MM-DD'))
-      .subscribe(
-        (result) => {
-          this.rows = result.data;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      .getList(moment(dateToSend).format('YYYY-MM-DD')).pipe(
+        map(
+          (result) => {
+            this.loading = false;
+            this.rows = result.data;
+          }
+        ),
+        catchError(
+          (error: HttpErrorResponse) => {
+            this.loading = false;
+            console.log(error);
+            return throwError(()=>error);
+          }
+        )
+      )
+      .subscribe();
   }
 
   depositRequest() {
+    this.loading = true;
     if (this.moveGroup.controls.depositRequest.value) {
       this.movementService
-        .depositRequest(`${this.moveGroup.controls.depositRequest.value}`)
-        .subscribe(
-          (result) => {},
-          async (error) => {
-            this.toastController
-              .create({
-                message: error.error.text,
-                duration: 2000,
-              })
-              .then((data: any): void => {
-                data.present();
-              });
-            this.moveGroup.controls.depositRequest.setValue(null);
-            this.getList();
-
-            if (error.error.text === 'Solicitud Hecha Con Exito') {
-              // se actualiza el saldo//
-              (await this.folderService.getUserInfo()).subscribe(
-                async (result) => {
-                  this.user.saldo = parseInt(result.monedero).toLocaleString(
-                    'es-MX'
-                  );
-                  this.user.bonus = parseInt(result.bonus).toLocaleString(
-                    'es-MX'
-                  );
-
-                  await this.folderService.setUser(this.user);
-                },
-                async (error) => {
-                  console.log(error);
-                  const toast = await this.toastController.create({
-                    message: 'Error cargando la informacion de usuario',
-                    duration: 2000,
-                  });
-                  toast.present();
-                }
-              );
+        .depositRequest(`${this.moveGroup.controls.depositRequest.value}`).pipe(
+          map(
+            (result) => {
+              this.loading = false;
+              this.toastController
+                .create({
+                  message: result.message,
+                  duration: 2000,
+                })
+                .then((data: any): void => {
+                  data.present();
+                });
+              this.moveGroup.controls.depositRequest.setValue(null);
+              this.getList();
+  
+              if (result.message === 'Solicitud Hecha Con Exito') {
+                this.getUserInfo();
+              }
             }
-          }
-        );
+          ),
+          catchError(
+            (error: HttpErrorResponse) => {
+              console.log(error);
+              this.toastController
+                .create({
+                  message: 'Error en el proceso',
+                  duration: 2000,
+                })
+                .then((data: any): void => {
+                  data.present();
+                });
+              return throwError(()=>error);
+            }
+          )
+        )
+        .subscribe();
     } else {
       this.toastController
         .create({
@@ -115,34 +122,52 @@ export class MovementsComponent implements OnInit {
 
   rechargeRequest() {
     if (this.moveGroup.controls.rechargeRequest.value) {
+      this.loading = true;
       this.movementService
-        .rechargeRequest(`${this.moveGroup.controls.rechargeRequest.value}`)
-        .subscribe(
-          (result) => {},
-          (error) => {
-            if (error.error.text === 'Solcicitud Hecha Con Exito') {
-              this.toastController
-                .create({
-                  message: 'Solicitud Hecha Con Exito',
-                  duration: 2000,
-                })
-                .then((data: any): void => {
-                  data.present();
-                });
-              this.moveGroup.controls.depositRequest.setValue(null);
-            } else {
-              this.toastController
-                .create({
-                  message: 'Hubo un problema revise los movimientos',
-                  duration: 2000,
-                })
-                .then((data: any): void => {
-                  data.present();
-                });
+        .rechargeRequest(`${this.moveGroup.controls.rechargeRequest.value}`).pipe(
+          map(
+            (result) => {
+              this.loading = false;
+              if (result.message === 'Solicitud Hecha Con Exito') {
+                this.toastController
+                  .create({
+                    message: result.message,
+                    duration: 2000,
+                    color: 'primary'
+                  })
+                  .then((data: any): void => {
+                    data.present();
+                  });
+                this.moveGroup.controls.depositRequest.setValue(null);
+              } else {
+                this.toastController
+                  .create({
+                    message: 'Hubo un problema revise los movimientos',
+                    duration: 2000,
+                  })
+                  .then((data: any): void => {
+                    data.present();
+                  });
+              }
+              this.getList();
             }
-            this.getList();
-          }
-        );
+          ),
+          catchError(
+            (error: HttpErrorResponse) => {
+              console.log(error);
+              this.toastController
+                  .create({
+                    message: 'Hubo un problema revise los movimientos',
+                    duration: 2000,
+                  })
+                  .then((data: any): void => {
+                    data.present();
+                  });
+            return throwError(()=>error);
+            }
+          )
+        )
+        .subscribe();
     } else {
       this.toastController
         .create({
@@ -156,22 +181,29 @@ export class MovementsComponent implements OnInit {
   }
 
   getUserInfo = async () => {
-    (await this.folderService.getUserInfo()).subscribe(
-      async (result) => {
-        this.user.saldo = parseInt(result.monedero).toLocaleString('es-MX');
-        this.user.bonus = parseInt(result.bonus).toLocaleString('es-MX');
-
-        await this.folderService.setUser(this.user);
-      },
-      async (error) => {
-        console.log(error);
-        const toast = await this.toastController.create({
-          message: 'Error cargando la informacaion de usuario',
-          duration: 2000,
-        });
-        toast.present();
-      }
-    );
+    this.loading = true;
+    (await this.folderService.getUserInfo()).pipe(
+      map(
+        async (result) => {
+          this.user.saldo = parseInt(result.monedero).toLocaleString('es-MX');
+          this.user.bonus = parseInt(result.bonus).toLocaleString('es-MX');
+  
+          await this.folderService.setUser(this.user);
+          this.loading = false;
+        },
+      ),
+      catchError(
+        async (error) => {
+          this.loading = false;
+          console.log(error);
+          const toast = await this.toastController.create({
+            message: 'Error cargando la informacaion de usuario',
+            duration: 2000,
+          });
+          toast.present();
+        }
+      )
+    ).subscribe();
   };
   
   ngOnInit() {

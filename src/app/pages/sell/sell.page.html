@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<div id="container" class="">
+<div id="container" *ngIf="!loading; else loadingTemplate">
     <form [formGroup]="ticketDataFormGroup">
       <div class="sub-container">
         <div class="middle-screen">
@@ -85,8 +85,13 @@
       </div>
     </div>
     <div class="button-container-div">
-      <ion-button (click)="submit()" color="tertiary" *ngIf="dataToSend.length > 0"
+      <ion-button (click)="submit()" color="tertiary" *ngIf="dataToSend.length > 0 && !loading"
         >Comprar</ion-button
       >
     </div>
 </div>
+<ng-template #loadingTemplate>
+  <div class="main">
+    <ion-spinner name="dots" color="tertiary"></ion-spinner>
+  </div>
+</ng-template>

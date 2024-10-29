@@ -66,6 +66,7 @@ export class AuthService {
     datas.append('telephone', registryData.telephone);
     datas.append('sinpe', registryData.sinpe);
     datas.append('password', registryData.password);
+    datas.append('banca', appConstants.banca);
     datas.append('version', '8');
 
     return this.http

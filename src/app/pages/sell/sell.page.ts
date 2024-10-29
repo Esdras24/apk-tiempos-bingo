@@ -27,6 +27,7 @@ export class SellPage implements OnInit {
   user!: UserEntity;
   public raffles: any[] = [];
   public dataToSend: any[] = [];
+  loading = false;
 
   constructor(
     private folderService: FolderService,
@@ -45,11 +46,14 @@ export class SellPage implements OnInit {
   }
 
   async getRaffles() {
+    this.loading = true;
     (await this.folderService.getRaffles()).subscribe(
       (result) => {
+        this.loading = false;
         this.raffles = result;
       },
       (error) => {
+        this.loading = false;
         console.log(error);
       }
     );
@@ -182,12 +186,14 @@ export class SellPage implements OnInit {
         });
         toast.present();
       } else {
+        this.loading = true;
         const finalData = {
           sorteo: sorteo,
           datos: this.dataToSend,
         };
         (await this.folderService.save(finalData, this.user)).subscribe(
           async (result) => {
+            this.loading = false;
             if (result.mensaje2 === 'ok') {
               this.ticketDataFormGroup.controls.amountInput.setValue('');
               this.ticketDataFormGroup.controls.numberInput.setValue('');
@@ -210,6 +216,7 @@ export class SellPage implements OnInit {
             }
           },
           (error) => {
+            this.loading = false;
             console.log(error);
           }
         );

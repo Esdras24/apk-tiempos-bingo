@@ -12,6 +12,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!loading; else loadingTemplate">
   <h1>Pronto Nuevas Funciones!!</h1>
 </ion-content>
+
+<ng-template #loadingTemplate>
+  <div class="main">
+    <ion-spinner name="dots" color="tertiary"></ion-spinner>
+  </div>
+</ng-template>
